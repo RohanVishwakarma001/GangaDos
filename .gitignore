@@ -1,0 +1,89 @@
+# See https://help.github.com/en/articles/ignoring-files#create-a-gitignore-file
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# cache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids
+logs
+
+# editor
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# IDEs
+.idea
+.vscode
+
+# misc
+._*
+.SimplyStatic
+.SimplyStaticCache
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# temporary files
+*.swp
+
+# ignored by gitignore.io
+.DS_Store
+._*
+.SimplyStatic
+.SimplyStaticCache
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# temp files
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# cache
+npm-cache/
+yarn-cache/
