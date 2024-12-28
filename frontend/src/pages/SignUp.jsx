@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import { Loader, Lock, Mail, User } from "lucide-react";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { createResource } from "../services/apiService";
+import { handleSuccess } from "../lib/utils";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-
+w
   const [isLoading, setIsLoading] = useState(false);
 
   const [handleError, setHAndleError] = useState("");
@@ -34,6 +35,20 @@ const SignUp = () => {
     }
 
     setHAndleError("");
+    try {
+      const responce = await createResource("/auth/signup", data);
+
+      const { success, message } = responce;wwwww
+
+      if (success) {
+        handleSuccess(message);
+      }
+
+      navigate("/verify-email");
+    } catch (error) {
+      handleError("Something went wrong");
+      console.log(error);
+    }
   };
 
   return (
