@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
-import { Loader, Lock, Mail } from "lucide-react";
-
-const Login = () => {
+import { Loader, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
+const ForgatPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleLoginForm = (e) => {
+  const handleResetForm = (e) => {
     e.preventDefault();
-    const data = { email, password };
-    console.log(data);
   };
   return (
     <motion.div
@@ -24,10 +18,10 @@ const Login = () => {
     >
       <div className="p-8">
         <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-emerald-500 text-transparent bg-clip-text">
-          Welcome Back
+          Forget Password
         </h2>
 
-        <form onSubmit={handleLoginForm}>
+        <form onSubmit={handleResetForm}>
           <Input
             icon={Mail}
             type="email"
@@ -35,22 +29,6 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Input
-            icon={Lock}
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <div className="flex items-center mb-6">
-            <Link
-              to="/forgot-password"
-              className="text-sm text-green-400 hover:underline"
-            >
-              Forgot password?
-            </Link>
-          </div>
 
           {/* {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>} */}
 
@@ -67,16 +45,16 @@ const Login = () => {
             {isLoading ? (
               <Loader className=" animate-spin mx-auto" size={24} />
             ) : (
-              "Sign Up"
+              "Send Email"
             )}
           </motion.button>
         </form>
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
         <p className="text-sm text-gray-400">
-          Don&apos;t have an account?{" "}
-          <Link to={"/signup"} className="text-green-400 hover:underline">
-            SignUp
+          Already have an account?{" "}
+          <Link to={"/login"} className="text-green-400 hover:underline">
+            Login
           </Link>
         </p>
       </div>
@@ -84,4 +62,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgatPassword;

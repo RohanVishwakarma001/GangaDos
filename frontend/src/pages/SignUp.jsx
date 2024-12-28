@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import { Loader, Lock, Mail, User } from "lucide-react";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
+import { createResource } from "../services/apiService";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -14,10 +15,25 @@ const SignUp = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [handleError, setHAndleError] = useState("");
+
   //   const { signup, error, isLoading } = useAuthStore();
 
-  const handleSignUpForm = (e) => {
+  const handleSignUpForm = async (e) => {
     e.preventDefault();
+    const data = { name, email, password, confirmPassword };
+    console.log(data);
+    if (!name || !email || !password || !confirmPassword) {
+      setHAndleError("All field are required");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setHAndleError("Password does not match");
+      return;
+    }
+
+    setHAndleError("");
   };
 
   return (
@@ -62,6 +78,9 @@ const SignUp = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           {/* {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>} */}
+          {handleError && (
+            <p className="text-red-500 font-semibold mt-2">{handleError}</p>
+          )}
           <PasswordStrengthMeter password={password} />
 
           <motion.button
