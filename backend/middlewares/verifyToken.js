@@ -11,8 +11,10 @@ export const verifyToken = (req, res, next) => {
     req.userId = decoded.userID;
     next();
   } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({ success: false, message: "Token expired" });
+    }
     console.log("Error in verifyToken", error);
-
     return res.status(401).json({ success: false, message: "Unauthorized" });
   }
 };

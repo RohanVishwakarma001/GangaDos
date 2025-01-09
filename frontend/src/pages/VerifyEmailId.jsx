@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { createResource } from "../services/apiService";
-import { handleSuccess } from "../lib/utils";
-
+import { useAuthStore } from "../store/authStore";
+import { handleError, handleSuccess } from "../lib/utils";
 const VerifyEmailId = () => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
-  const [isLoading, setIsLoading] = useState(false);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
+  const { verifyEmail, error, isLoading } = useAuthStore();
 
   const handleChange = (index, value) => {
     const newCode = [...code];
@@ -44,16 +43,15 @@ const VerifyEmailId = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    const verificationCode = code.join("");
 
     try {
-      const verificationCode = code.join("");
-      await createResource("/auth/verify-email", verificationCode);
+      const responce = await verifyEmail(verificationCode);
+      navigate("/");
       handleSuccess("Email verified successfully");
-      navigate("/login");
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      handleError("Invalid verification code");
     }
   };
 
@@ -94,7 +92,7 @@ const VerifyEmailId = () => {
               />
             ))}
           </div>
-          {/* {error && <p className="text-red-500 font-semibold mt-2">{error}</p>} */}
+          {error && <p className="text-red-500 font-semibold mt-2">{error}</p>}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
